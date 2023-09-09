@@ -1,0 +1,28 @@
+{
+  "dotenv.enableAutocloaking": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontSize": 12,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 2,
+  "eslint.codeActionsOnSave.rules": null,
+  "eslint.enable": true,
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.nodePath": "/home/codespace/nvm/current/bin/node",
+  "eslint.options": {
+    "overrideConfigFile": "./.eslintrc.js"
+  },
+  "files.associations": {
+    ".env*": "dotenv"
+  },
+  "sonarlint.pathToNodeExecutable": "/home/codespace/nvm/current/bin/node",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.colorTheme": "Expo Light",
+
+  "prettier.configPath": "./packages/config/prettier-preset.js"
+}
