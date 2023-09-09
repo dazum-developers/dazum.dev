@@ -1,0 +1,3 @@
+{
+  "extends": "@dazum/config/tsconfig/base.json"
+}
