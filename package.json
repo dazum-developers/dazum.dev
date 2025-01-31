@@ -1,0 +1,14 @@
+{
+  "name": "maple",
+  "version": "1.0.0",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "engines": {
+      "node": ">=20"
+  }
+}
