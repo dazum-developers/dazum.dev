@@ -1,7 +1,8 @@
-import type { NextFunction, Request, Response } from 'express'
+import { type NextFunction, type Request, type Response } from 'express'
 
 import HTTPException from './http-exception'
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class ValidationHelper {
   static isEmail(field: string, optional = false) {
     return (req: Request, _res: Response, next: NextFunction) => {
@@ -9,7 +10,8 @@ export default class ValidationHelper {
         return next()
       }
 
-      const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      const re =
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/
 
       if (re.test(String(req.body[field]).toLowerCase())) {
         return next()
@@ -43,12 +45,7 @@ export default class ValidationHelper {
         return next()
       }
 
-      return next(
-        new HTTPException(
-          400,
-          `Field ${field} should not be longer than ${fieldLength}`
-        )
-      )
+      return next(new HTTPException(400, `Field ${field} should not be longer than ${fieldLength}`))
     }
   }
 }

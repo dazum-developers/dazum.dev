@@ -1,10 +1,10 @@
-import {join} from 'path'
+/* eslint-disable n/no-process-env */
+import { join } from 'node:path'
 
 import * as pkg from '../package.json'
 
 function getOsEnv(key: string): string {
-  if (typeof process.env[key] === 'undefined')
-    throw new Error(`Environment variable ${key} is not set.`)
+  if (typeof process.env[key] === 'undefined') throw new Error(`Environment variable ${key} is not set.`)
 
   return process.env[key]
 }
@@ -12,38 +12,37 @@ function getOsEnv(key: string): string {
 const getOsEnvOptional = (key: string): string | undefined => process.env[key]
 
 const getPath = (path: string): string =>
-  (process.env.NODE_ENV === 'production')
+  process.env.NODE_ENV === 'production'
     ? join(process.cwd(), path.replace('src/', 'dist/').slice(0, -3) + '.js')
     : join(process.cwd(), path)
 
+const getOsEnvArray = (key: string, delimiter: string = ','): string[] => process.env?.[key]?.split(delimiter) || []
 const getPaths = (paths: string[]): string[] => paths.map(p => getPath(p))
 const getOsPath = (key: string): string => getPath(getOsEnv(key))
 const getOsPaths = (key: string): string[] => getPaths(getOsEnvArray(key))
 
-const getOsEnvArray = (key: string, delimiter: string = ','): string[] =>
-  process.env?.[key]?.split(delimiter) || []
+const toNumber = (value: string): number => parseInt(value, 10)
 
-const toNumber = (value: string): number =>
-  parseInt(value, 10)
+const toBool = (value: string): boolean => value === 'true'
 
-const toBool = (value: string): boolean =>
-  value === 'true'
-
-function normalizePort(port: string): number | string | boolean {
-  const parsedPort = parseInt(port, 10);
-  if (isNaN(parsedPort)) // named pipe
+// eslint-disable-next-line sonarjs/function-return-type
+function normalizePort(port: string): number | string {
+  const parsedPort = parseInt(port, 10)
+  if (isNaN(parsedPort))
+    // named pipe
     return port
 
-  if (parsedPort >= 0) // port number
+  if (parsedPort >= 0)
+    // port number
     return parsedPort
 
-  return false
+  return +false
 }
 
 /**
  * Load .env file or for tests the .env.test file.
  */
-//dotenv.config({ path: join(process.cwd(), `.env${((process.env.NODE_ENV === 'test') ? '.test' : '')}`) })
+// dotenv.config({ path: join(process.cwd(), `.env${((process.env.NODE_ENV === 'test') ? '.test' : '')}`) })
 
 /**
  * Environment variables
@@ -55,8 +54,7 @@ export default {
   isDevelopment: process.env.NODE_ENV === 'development',
   app: {
     name: getOsEnv('APP_NAME') || pkg.name,
-    version: (pkg as any).version,
-    description: (pkg as any).description,
+    version: pkg.version,
     host: getOsEnv('APP_HOST'),
     schema: getOsEnv('APP_SCHEMA'),
     routePrefix: getOsEnv('APP_ROUTE_PREFIX'),

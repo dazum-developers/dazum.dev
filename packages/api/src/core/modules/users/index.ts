@@ -9,7 +9,7 @@ import auth from '@/middlewares/auth'
 export default routeGroup(
   {
     name: 'users',
-    prefix: '/users'
+    prefix: '/users',
   },
   [
     {
@@ -57,5 +57,5 @@ export default routeGroup(
     //   validators: [],
     //   controllers: [],
     // },
-  ]
+  ],
 )

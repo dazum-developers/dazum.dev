@@ -26,7 +26,7 @@ export function banner() {
     console.log('-------------------------------------------------------')
     console.log('')
   }
-  if (process.env.NODE_ENV === 'production') {
-    console.log(`🚀 Server is running at: ${route()}`);
+  if (env.node === 'production') {
+    console.log(`🚀 Server is running at: ${route()}`)
   }
 }

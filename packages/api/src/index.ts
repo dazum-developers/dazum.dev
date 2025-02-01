@@ -1,28 +1,28 @@
 import 'reflect-metadata'
 
-import type {Request, Response, Application, IRouterMatcher} from 'express'
+import { type Request, type Response, type Application, type IRouterMatcher } from 'express'
 
 import Express from 'express'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import {blue, bold, green} from 'kolorist'
+import { blue, bold, green } from 'kolorist'
 
-import {logger} from './middlewares/logger'
+import { logger } from './middlewares/logger'
 
-import {banner} from './utils/banner'
-import {shouldCompress} from './utils/compress'
+import { banner } from './utils/banner'
+import { shouldCompress } from './utils/compress'
 
 import env from './env'
-import {getRouter} from '@/router/index'
+import { getRouter } from '@/router/index'
 
 export type METHOD = 'get' | 'post' | 'patch' | 'delete'
 
 class Server {
   constructor(
-      // @ts-expect-error TS7009: new expression, whose target lacks a construct signature, implicitly has an any type
-      private app: Application = new Express()
+    // @ts-expect-error TS7009: new expression, whose target lacks a construct signature, implicitly has an any type
+    private app: Application = new Express(),
   ) {}
 
   async settingRoutes() {
@@ -32,17 +32,15 @@ class Server {
     for (const route of routers) {
       if (this.app?.get('env') !== 'test') {
         const path = `${env.app.routePrefix}${route.path}`
-        console.log(
-          `${green('✓')}${bold(blue(route.method.toUpperCase()))}: ${blue(path)} configured and setup.`
-        )
+        console.log(`${green('✓')}${bold(blue(route.method.toUpperCase()))}: ${blue(path)} configured and setup.`)
       }
 
       const method: METHOD = route.method
 
-      ;(this.app[method] as IRouterMatcher<any>)(`${env.app.routePrefix}${route.path}`, [
-          ...route.middlewares,
-          ...route.validators,
-          ...route.controllers
+      ;(this.app[method] as IRouterMatcher<unknown>)(`${env.app.routePrefix}${route.path}`, [
+        ...route.middlewares,
+        ...route.validators,
+        ...route.controllers,
       ])
     }
 
@@ -52,7 +50,7 @@ class Server {
       return res.status(404).json({
         status: 'error',
         code: 404,
-        message: `${req.url} not found`
+        message: `${req.url} not found`,
       })
     })
   }
@@ -64,21 +62,21 @@ class Server {
         this.app = new Express()
       }
 
-      this.app?.use(Express.json())
-      this.app?.use(logger)
-      this.app?.use(compression({filter: shouldCompress, level: 9}))
-      this.app?.use(Express.urlencoded({extended: false}))
-      this.app?.use(cookieParser())
-      this.app?.use(cors())
+      this.app.use(Express.json())
+      this.app.use(logger)
+      this.app.use(compression({ filter: shouldCompress, level: 9 }))
+      this.app.use(Express.urlencoded({ extended: false }))
+      this.app.use(cookieParser())
+      this.app.use(cors())
 
       // parse application/x-www-form-urlencoded
-      this.app?.use(bodyParser.urlencoded({extended: false}))
+      this.app.use(bodyParser.urlencoded({ extended: false }))
 
       await this.settingRoutes()
 
       const port: number = typeof env.app.port === 'number' ? env.app.port : 3000
 
-      return this.app?.listen(port, env.app.host, () => {
+      return this.app.listen(port, env.app.host, () => {
         banner()
       })
     } catch (error) {

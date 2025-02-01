@@ -13,9 +13,7 @@
     /* Language and Environment */
     "target": "ESNext",
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     "experimentalDecorators": true,
@@ -38,7 +36,8 @@
     "moduleResolution": "bundler",
     /* Specify how TypeScript looks up a file from a given module specifier. */
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    "paths": {                                           /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "paths": {
+      /* Specify a set of entries that re-map imports to additional lookup locations. */
       "@/common/*": ["./src/common/*"],
       "@/constants/*": ["./src/constants/*"],
       "@/core/*": ["./src/core/*"],
@@ -135,6 +134,6 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
   }
 }

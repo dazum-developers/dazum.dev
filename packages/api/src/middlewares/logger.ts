@@ -1,5 +1,5 @@
-import type {Request, Response, NextFunction} from 'express'
-import {black, blue, bold, green, lightMagenta, red, yellow} from 'kolorist'
+import { type Request, type Response, type NextFunction } from 'express'
+import { black, blue, bold, green, lightMagenta, red, yellow } from 'kolorist'
 
 export type Colors = { [key: number]: (str: string | number) => string }
 
@@ -8,7 +8,7 @@ const STATUS_CODES: Colors = {
   2: green,
   3: lightMagenta,
   4: red,
-  5: yellow
+  5: yellow,
 }
 
 const getColorCode = (code: number) => {
@@ -30,7 +30,9 @@ export function logger(req: Request, res: Response, next: NextFunction) {
   res.on('finish', (): void => {
     const duration = getDurationInMilliseconds(start)
     const color = getColorCode(res.statusCode)
-    console.log(`${req.method} ${req.originalUrl} ${bold(color?.(res.statusCode) || '')} ${duration.toLocaleString()} ms`)
+    console.log(
+      `${req.method} ${req.originalUrl} ${bold(color?.(res.statusCode) || '')} ${duration.toLocaleString()} ms`,
+    )
   })
 
   next()

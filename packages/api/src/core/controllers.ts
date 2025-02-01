@@ -1,2 +1,2 @@
-export class Controller {
-}
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+export class Controller {}

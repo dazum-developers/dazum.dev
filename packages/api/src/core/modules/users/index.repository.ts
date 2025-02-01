@@ -1,4 +1,4 @@
-import {Repository} from '@/core/repository'
+import { Repository } from '@/core/repository'
 
 export default class UserRepository extends Repository {
   static readonly #instance: UserRepository = new UserRepository()

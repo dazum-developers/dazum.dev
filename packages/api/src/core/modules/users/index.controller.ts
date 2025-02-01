@@ -1,4 +1,4 @@
-import {Controller} from '@/core/controllers'
+import { Controller } from '@/core/controllers'
 
 import UserService from './index.service'
 

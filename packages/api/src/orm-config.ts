@@ -7,10 +7,9 @@ export const config = {
   username: env.db.username,
   password: env.db.password,
   database: env.db.database,
-  entities: [
-    __dirname + '/../**/*.entity{.ts,.js}',
-  ],
+  // eslint-disable-next-line
+  entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
   cli: {
     migrationsDir: env.app.dirs.migrationsDir,
-  }
+  },
 }
