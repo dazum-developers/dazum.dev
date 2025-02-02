@@ -104,4 +104,5 @@ export default {
     username: getOsEnv('MONITOR_USERNAME'),
     password: getOsEnv('MONITOR_PASSWORD'),
   },
+  skeys: getOsEnv('SECRET_KEY'),
 }
