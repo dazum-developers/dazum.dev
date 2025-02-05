@@ -1,0 +1,37 @@
+{
+  "name": "maple-api",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development bun --watch run src/index.ts",
+    "prisma:db": "prisma db",
+    "prisma:migrate": "prisma migrate",
+    "prisma:studio": "prisma studio",
+    "prisma:validate": "prisma validate",
+    "start": "NODE_ENV=production bun run src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "body-parser": "^1",
+    "compression": "^1",
+    "cookie-parser": "^1",
+    "cors": "^2",
+    "express": "^5",
+    "helmet": "^8",
+    "kolorist": "^1",
+    "reflect-metadata": "^0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1",
+    "@types/bun": "latest",
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2",
+    "@types/express": "^5",
+    "prisma": "^6.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
