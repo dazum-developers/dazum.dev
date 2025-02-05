@@ -1,0 +1,38 @@
+# Use Node 20 as base image
+FROM node:20-alpine
+
+# Install bash and other necessary tools
+RUN apk add --no-cache bash curl unzip
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
+
+# Add Bun to PATH
+ENV PATH="/root/.bun/bin:${PATH}"
+
+# Accept workspace as a build argument
+ARG api
+
+# Set working directory
+WORKDIR /usr/maple
+
+# Copy package files
+COPY package.json bun.lockb* ./
+
+# Install dependencies using Bun
+RUN bun install --frozen-lockfile
+
+# Copy the specific workspace
+COPY packages/api ./packages/api
+
+# Set working directory to the specific workspace
+WORKDIR /usr/maple/packages/api
+
+# Install workspace dependencies
+RUN bun install --frozen-lockfile
+
+# Expose the port
+EXPOSE 4000
+
+# Command to run the application
+CMD ["bun", "run", "start"]

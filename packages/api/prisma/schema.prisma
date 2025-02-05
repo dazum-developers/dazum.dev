@@ -18,18 +18,21 @@ model users {
   email    String      @unique @db.VarChar(255)
   keys     cereal?
   profile  profile?
+  created_at  DateTime  @default(now()) @db.Timestamp(6)
 }
 
 model profile {
   id       String     @id @unique @db.VarChar(12)
   name     String     @db.VarChar(255)
-  userId   String     @unique
-  user     users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_id   String     @unique
+  user     users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createad_at  DateTime    @default(now()) @db.Timestamp(6)
 }
 
 model cereal {
   id       String     @id @unique @db.VarChar(12)
   key      String     @db.Text
-  userId   String     @unique
-  user     users      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_id   String     @unique
+  user     users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createad_at  DateTime    @default(now()) @db.Timestamp(6)
 }
