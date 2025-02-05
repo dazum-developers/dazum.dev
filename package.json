@@ -8,7 +8,8 @@
     "format": "prettier packages/**/* --cache --write",
     "lint": "eslint -c eslint.config.mjs  packages/**",
     "lint:fix": "yarn run lint --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start": "bun --filter maple-api start"
   },
   "workspaces": [
     "packages/*"

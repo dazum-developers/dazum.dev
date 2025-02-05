@@ -9,7 +9,7 @@
     "prisma:migrate": "prisma migrate",
     "prisma:studio": "prisma studio",
     "prisma:validate": "prisma validate",
-    "start": "NODE_ENV=production bun run src/index.ts"
+    "start": "NODE_ENV=production bun run prisma generate && bun run src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.3.0",
