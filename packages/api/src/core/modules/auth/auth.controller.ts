@@ -1,10 +1,9 @@
 import { type Request, type Response } from 'express'
 
 import { Controller } from '@/core/controllers'
+import env from '@/env'
 
 import AuthService from './auth.service'
-
-import env from '../../../env'
 
 type LoginRequest = {
   email: string
