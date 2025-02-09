@@ -10,7 +10,7 @@ x-db-env: &db-env
 x-api-env: &api-env
   APP_BANNER: ${APP_BANNER:-true}
   APP_NAME: ${APP_NAME:-maple-api}
-  APP_HOST: ${APP_HOST:-localhost}
+  APP_HOST: ${APP_HOST:-0.0.0.0}
   APP_PORT: ${APP_PORT:-3000}
   APP_ROUTE_PREFIX: ${APP_ROUTE_PREFIX:-/api/v1}
   APP_SCHEMA: ${APP_SCHEMA:-http}
@@ -19,15 +19,15 @@ x-api-env: &api-env
   NODE_ENV: ${NODE_ENV:-production}
   SECRET_KEY: ${SECRET_KEY:-gou9QMHmXHxm1BXxAPd63LiQqPpLUsgHcG7rNxoAy8yJKz65rn1aEb/x6CsobcYdeP9EEWARIuBCOXV/cb+6hg==}
   TYPEORM_CONNECTION: ${TYPEORM_CONNECTION:-postgres}
-  TYPEORM_HOST: ${TYPEORM_HOST:-localhost}
-  TYPEORM_PORT: ${TYPEORM_PORT:-6543}
+  TYPEORM_HOST: ${TYPEORM_HOST:-maple-db}
+  TYPEORM_PORT: ${TYPEORM_PORT:-5432}
   TYPEORM_USERNAME: ${TYPEORM_USERNAME:-maple}
   TYPEORM_PASSWORD: ${TYPEORM_PASSWORD:-maple}
   TYPEORM_DATABASE: ${TYPEORM_DATABASE:-maple}
   TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE:-false}
   TYPEORM_LOGGING: ${TYPEORM_LOGGING:-error}
   TYPEORM_LOGGER: ${TYPEORM_LOGGER:-advanced-console}
-  TYPEORM_URL: ${TYPEORM_URL:-postgresql://maple:maple@localhost:6543/maple?schema=public}
+  TYPEORM_URL: ${TYPEORM_URL:-postgresql://maple:maple@maple-db:5432/maple?schema=public}
 
 services:
   maple-db:
@@ -45,24 +45,24 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   maple-api:
-     build:
-       context: ../  # Point to the root of the monorepo
-       dockerfile: docker/Dockerfile.api
-       args:
-         - WORKSPACE=api  # Specify the workspace to build
-     pull_policy: if_not_present
-     restart: unless-stopped
-     ports:
-       - 4000:3000
-     expose:
-       - 4000
-     environment:
-       <<: *api-env
-     volumes:
-       - ../:/usr/maple
-     working_dir: /usr/maple
-     depends_on:
-       - maple-db
+    build:
+      context: ../  # Point to the root of the monorepo
+      dockerfile: docker/Dockerfile.api
+      args:
+        - WORKSPACE=api  # Specify the workspace to build
+    pull_policy: if_not_present
+    restart: unless-stopped
+    ports:
+      - 4000:3000
+    expose:
+      - 4000
+    environment:
+      <<: *api-env
+    volumes:
+      - ../:/usr/maple
+    working_dir: /usr/maple
+    depends_on:
+      - maple-db
 
 volumes:
   pgdata:
